@@ -32,8 +32,6 @@
       --radius-md:24px;
       --radius-lg:32px;
       --radius-pill:999px;
-      --phone-w:min(100vw,430px);
-      --phone-h:min(100dvh,932px);
       --safe-bottom:calc(22px + env(safe-area-inset-bottom,0px));
       --safe-top:calc(18px + env(safe-area-inset-top,0px));
       --blur:22px;
@@ -77,20 +75,14 @@
     .backdrop-orb{width:200px;height:200px;left:-40px;top:6%;background:rgba(137,184,255,.18);border-radius:50%}
     .backdrop-orb:before{content:'';width:180px;height:180px;right:-60px;top:180px;background:rgba(255,201,123,.12);border-radius:50%;position:fixed}
     .backdrop-orb:after{content:'';width:220px;height:220px;right:2%;bottom:10%;background:rgba(111,215,191,.10);border-radius:50%;position:fixed}
-    .stage{height:100%;display:grid;place-items:center;padding:18px}
-    .phone{
-      width:var(--phone-w);height:var(--phone-h);max-height:100%;position:relative;overflow:hidden;
-      border-radius:42px;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.08));
-      border:1px solid rgba(255,255,255,.44);box-shadow:var(--shadow-lg);
-      backdrop-filter:blur(18px) saturate(125%);-webkit-backdrop-filter:blur(18px) saturate(125%);
-      isolation:isolate;
-    }
-    .phone:before{content:'';position:absolute;inset:0;border-radius:42px;padding:1px;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.08));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.9}
+    .stage{height:100%;width:100%;display:block;padding:0}
+    .phone{width:100vw;height:100dvh;max-height:none;position:relative;overflow:hidden;border-radius:0;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.08));border:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;isolation:isolate}
+    .phone:before{content:none}
     .noise{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.12) .55px, transparent .55px);background-size:8px 8px;opacity:.12;mix-blend-mode:soft-light;pointer-events:none}
-    .notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:126px;height:33px;background:rgba(8,10,16,.88);border-radius:0 0 20px 20px;z-index:6;box-shadow:0 3px 14px rgba(0,0,0,.28)}
-    .app{position:relative;height:100%;display:grid;grid-template-rows:auto 1fr auto;z-index:2}
-    .top{padding:var(--safe-top) 18px 10px 18px;display:grid;gap:12px;transition:filter .28s ease}
-    .statusbar{display:flex;align-items:center;justify-content:space-between;padding:0 6px;font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--text-muted)}
+    .notch{display:none}
+    .app{position:relative;height:100%;width:100%;display:grid;grid-template-rows:1fr auto;z-index:2}
+    .top{padding:18px 18px 10px 18px;display:grid;gap:12px;transition:filter .28s ease}
+    .statusbar{display:none}
     .island-card,.glass-card,.glass-panel,.bottom-bar,.fab-plus,.chip,.list-item,.tax-card,.category-row,.search-wrap,.field-shell,.admin-toggle{backdrop-filter:blur(var(--blur)) saturate(145%);-webkit-backdrop-filter:blur(var(--blur)) saturate(145%)}
     .island-card{
       background:linear-gradient(180deg,var(--glass-strong),var(--glass-soft));border:1px solid var(--stroke);
@@ -222,6 +214,7 @@
     @media (prefers-reduced-motion:reduce){
       *,:before,:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
     }
+
     .theme-gold{--bg-a:#0d0b06;--bg-b:#1b1408;--bg-c:#2a1d0c;--glass:rgba(255,224,146,.18);--glass-strong:rgba(255,241,196,.26);--glass-soft:rgba(255,213,117,.12);--stroke:rgba(255,217,128,.35);--text:#fff6df;--text-muted:#dccb9a;--text-faint:#b89d63;--primary:#ffd44d;--primary-2:#ffb84d;}
     .theme-silver{--bg-a:#dfe6ee;--bg-b:#f4f7fb;--bg-c:#cfd7e2;--glass:rgba(255,255,255,.40);--glass-strong:rgba(255,255,255,.58);--glass-soft:rgba(232,238,245,.26);--stroke:rgba(165,176,189,.42);--text:#1b2430;--text-muted:#5f6b79;--text-faint:#8a96a4;--primary:#8fa0b3;--primary-2:#c7d0dc;}
     .theme-platinum{--bg-a:#f1f1ee;--bg-b:#e7e8e4;--bg-c:#d9ddd6;--glass:rgba(255,255,255,.52);--glass-strong:rgba(255,255,255,.72);--glass-soft:rgba(240,242,238,.32);--stroke:rgba(194,198,190,.50);--text:#1e2427;--text-muted:#667078;--text-faint:#8d959b;--primary:#9fa7a3;--primary-2:#d6dbd8;}
@@ -303,17 +296,15 @@
   <div class="stage">
     <div class="phone" role="application" aria-label="Patrimonio Tracker mobile">
       <div class="noise"></div>
-      <div class="notch" aria-hidden="true"></div>
       <div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
       <div class="app">
         <header class="top">
-          <div class="statusbar"><span>9:41</span><span>5G 100%</span></div>
           <div class="island-card">
             <div class="title-wrap">
               <small>Wealth cockpit</small>
               <h1>Patrimonio Tracker</h1>
             </div>
-            <button class="theme-btn springy" id="themeBtn" aria-label="Change theme"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-theme"></use></svg></span></button>
+            <button class="theme-btn springy" id="themeBtn" aria-label="Cambia tema"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-theme"></use></svg></span></button>
           </div>
         </header>
 
@@ -321,22 +312,22 @@
           <section class="screen" data-view="home">
             <article class="hero">
               <div class="hero-topline">
-                <div class="eyebrow">Total wealth</div>
+                <div class="eyebrow">Patrimonio totale</div>
                 <div class="total" id="grandTotal">€0</div>
                 <div class="hero-category-list" id="heroCategoryPercentages"></div>
               </div>
               <div class="hero-stats">
-                <div class="mini"><span>Assets</span><strong id="assetCount">0</strong></div>
-                <div class="mini"><span>Top category</span><strong id="topCategory">—</strong></div>
-                <div class="mini"><span>Liquid + invest.</span><strong id="liquidInvested">€0</strong></div>
+                <div class="mini"><span>Beni</span><strong id="assetCount">0</strong></div>
+                <div class="mini"><span>Top categoria</span><strong id="topCategory">—</strong></div>
+                <div class="mini"><span>Liquidi + invest.</span><strong id="liquidInvested">€0</strong></div>
               </div>
             </article>
 
             <section class="glass-panel">
               <div class="panel-head">
                 <div>
-                  <div class="eyebrow">Tax demo</div>
-                  <h2>Net value by country</h2>
+                  <div class="eyebrow">Tassazione demo</div>
+                  <h2>Valore netto per paese</h2>
                 </div>
               </div>
               <div class="metrics" id="taxOverview"></div>
@@ -346,14 +337,14 @@
               <div class="panel-head">
                 <div>
                   <div class="eyebrow">Wealth percentile</div>
-                  <h2>Where you stand</h2>
+                  <h2>Dove ti collochi</h2>
                 </div>
               </div>
               <div class="metrics">
                 <article class="tax-card" style="gap:10px;">
-                  <div class="eyebrow">Global demo estimate</div>
+                  <div class="eyebrow">Stima demo globale</div>
                   <div class="total" id="wealthPercentileHeadline" style="font-size:clamp(2.2rem,8vw,3rem);line-height:.9;">Top 50%</div>
-                  <div class="small muted" id="wealthPercentileText">Add assets to estimate your wealth bracket.</div>
+                  <div class="small muted" id="wealthPercentileText">Aggiungi beni per stimare la fascia patrimoniale.</div>
                 </article>
               </div>
             </section>
@@ -363,14 +354,14 @@
             <section class="glass-panel">
               <div class="panel-head">
                 <div>
-                  <div class="eyebrow">Archive</div>
-                  <h2>All assets</h2>
+                  <div class="eyebrow">Archivio</div>
+                  <h2>Tutti i beni</h2>
                 </div>
                 <button class="pill springy" id="loadDemoBtn"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-demo"></use></svg></span> Demo</button>
               </div>
               <div class="search-wrap">
                 <span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-search"></use></svg></span>
-                <input id="searchInput" type="search" placeholder="Search asset, model, reference..." />
+                <input id="searchInput" type="search" placeholder="Cerca bene, modello, referenza..." />
               </div>
               <div class="chips" id="categoryChips"></div>
               <div class="list" id="assetList"></div>
@@ -381,8 +372,8 @@
             <section class="glass-panel">
               <div class="panel-head">
                 <div>
-                  <div class="eyebrow">Composition</div>
-                  <h2>Wealth categories</h2>
+                  <div class="eyebrow">Composizione</div>
+                  <h2>Categorie patrimonio</h2>
                 </div>
               </div>
               <div class="metrics" id="categoryBreakdown"></div>
@@ -393,8 +384,8 @@
             <section class="glass-panel">
               <div class="panel-head">
                 <div>
-                  <div class="eyebrow">Five countries</div>
-                  <h2>Tax scenario</h2>
+                  <div class="eyebrow">Cinque paesi</div>
+                  <h2>Scenario fiscale</h2>
                 </div>
               </div>
               <div class="metrics" id="taxCountryTable"></div>
@@ -406,10 +397,10 @@
           <div class="admin-wrap">
             <button class="admin-toggle springy" id="adminEggBtn"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-admin"></use></svg></span> Admin test mode · +10 random assets</button>
           </div>
-          <nav class="bottom-bar" aria-label="Main tab bar">
+          <nav class="bottom-bar" aria-label="Barra tab principale">
             <div class="tabs">
               <button class="tab springy active" data-tab="home"><span class="ico sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-home"></use></svg></span><span class="lbl">Home</span></button>
-              <button class="tab springy" data-tab="assets"><span class="ico sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-assets"></use></svg></span><span class="lbl">Assets</span></button>
+              <button class="tab springy" data-tab="assets"><span class="ico sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-assets"></use></svg></span><span class="lbl">Beni</span></button>
               <button class="tab plus springy" id="openAddBtn"><span class="ico sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-plus"></use></svg></span><span class="lbl">Add</span></button>
               <button class="tab springy" data-tab="categories"><span class="ico sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-categories"></use></svg></span><span class="lbl">Mix</span></button>
               <button class="tab springy" data-tab="taxes"><span class="ico sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-tax"></use></svg></span><span class="lbl">Tax</span></button>
@@ -424,30 +415,30 @@
           <section class="glass-panel" style="background:none;border:none;box-shadow:none;">
             <div class="panel-head" style="padding-top:0; border-bottom:none;">
               <div>
-                <div class="eyebrow">New asset</div>
-                <h2 id="formTitle">Add portfolio item</h2>
+                <div class="eyebrow">Nuovo bene</div>
+                <h2 id="formTitle">Aggiungi voce patrimoniale</h2>
               </div>
-              <button class="pill springy" id="closeSheetBtn"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-close"></use></svg></span> Close</button>
+              <button class="pill springy" id="closeSheetBtn"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-close"></use></svg></span> Chiudi</button>
             </div>
             <form id="assetForm" class="form-wrap">
               <input type="hidden" id="assetId" />
               <div class="field-shell">
-                <label for="assetName">Asset name</label>
-                <input id="assetName" required placeholder="Ex. Rolex GMT-Master II" />
+                <label for="assetName">Nome bene</label>
+                <input id="assetName" required placeholder="Es. Rolex GMT-Master II" />
               </div>
               <div class="grid2">
                 <div class="field-shell">
-                  <label for="assetCategory">Category</label>
+                  <label for="assetCategory">Categoria</label>
                   <select id="assetCategory" required></select>
                 </div>
                 <div class="field-shell">
-                  <label for="assetValue">Value</label>
+                  <label for="assetValue">Valore</label>
                   <input id="assetValue" required type="number" min="0" step="0.01" placeholder="15000" />
                 </div>
               </div>
               <div class="grid2">
                 <div class="field-shell">
-                  <label for="assetCurrency">Currency</label>
+                  <label for="assetCurrency">Valuta</label>
                   <select id="assetCurrency">
                     <option value="EUR">EUR</option>
                     <option value="USD">USD</option>
@@ -456,30 +447,30 @@
                   </select>
                 </div>
                 <div class="field-shell">
-                  <label for="assetCountry">Country / location</label>
-                  <input id="assetCountry" placeholder="Italy" />
+                  <label for="assetCountry">Paese / sede</label>
+                  <input id="assetCountry" placeholder="Italia" />
                 </div>
               </div>
               <div class="grid2">
                 <div class="field-shell">
-                  <label for="assetSubType">Type / subcategory</label>
-                  <input id="assetSubType" placeholder="Ex. Bracelet, Daytona, Sedan" />
+                  <label for="assetSubType">Tipo / sottocategoria</label>
+                  <input id="assetSubType" placeholder="Es. Bracciale, Daytona, Berlina" />
                 </div>
                 <div class="field-shell">
-                  <label for="assetReference">Model / reference</label>
-                  <input id="assetReference" placeholder="Ex. 126710BLRO" />
+                  <label for="assetReference">Modello / referenza</label>
+                  <input id="assetReference" placeholder="Es. 126710BLRO" />
                 </div>
               </div>
               <div class="field-shell">
-                <label for="assetTicker">Ticker or identifier</label>
-                <input id="assetTicker" placeholder="BTC, AAPL, plate, ISIN..." />
+                <label for="assetTicker">Ticker o identificativo</label>
+                <input id="assetTicker" placeholder="BTC, AAPL, targa, ISIN..." />
               </div>
               <div class="field-shell">
-                <label for="assetNotes">Notes</label>
-                <textarea id="assetNotes" placeholder="Storage, share, useful details..."></textarea>
+                <label for="assetNotes">Note</label>
+                <textarea id="assetNotes" placeholder="Custodia, quota, dettagli utili..."></textarea>
               </div>
               <div class="form-actions">
-                <button class="primary-btn springy" type="submit" id="saveBtn"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span> Save asset</button>
+                <button class="primary-btn springy" type="submit" id="saveBtn"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span> Salva bene</button>
                 <button class="secondary-btn springy" type="button" id="resetFormBtn"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-reset"></use></svg></span> Reset</button>
               </div>
             </form>
@@ -491,45 +482,45 @@
 
   <script>
     const TAX_MODELS = [
-      { country: 'Italy', rate: 0.26 },
-      { country: 'Switzerland', rate: 0.12 },
-      { country: 'Germany', rate: 0.25 },
-      { country: 'France', rate: 0.30 },
-      { country: 'UAE', rate: 0.09 }
+      { country: 'Italia', rate: 0.26 },
+      { country: 'Svizzera', rate: 0.12 },
+      { country: 'Germania', rate: 0.25 },
+      { country: 'Francia', rate: 0.30 },
+      { country: 'EAU', rate: 0.09 }
     ];
 
     const CATEGORY_DEFS = [
-      ['Car','Sedan / SUV / sports car'],
-      ['Motorbike','Naked / sport / touring'],
-      ['Home','Apartment / villa / land'],
-      ['Cash','Account / cash / deposit'],
-      ['Stocks','ETF / single stocks'],
+      ['Auto','Berlina / SUV / sportiva'],
+      ['Moto','Naked / sportiva / touring'],
+      ['Casa','Appartamento / villa / terreno'],
+      ['Liquidità','Conto / cash / deposito'],
+      ['Azioni','ETF / singole azioni'],
       ['Crypto','Coin / token'],
-      ['Gold','Bar / coin'],
-      ['Jewelry','Ring / necklace / bracelet'],
-      ['Watches','Model / reference'],
-      ['Art','Artwork / collection'],
-      ['Business','Shares / equity'],
-      ['Other','Generic asset']
+      ['Oro','Lingotto / moneta'],
+      ['Gioielli','Anello / collana / bracciale'],
+      ['Orologi','Modello / referenza'],
+      ['Arte','Opera / collezione'],
+      ['Business','Quote / equity'],
+      ['Altro','Bene generico']
     ];
 
     const CATEGORY_COLORS = {
-      'Car':'#d8873f','Motorbike':'#e0b14f','Home':'#11818c','Cash':'#33a06f','Stocks':'#6092ff','Crypto':'#8c6bff','Gold':'#d4a43d','Jewelry':'#cf6ca8','Watches':'#7f7ce6','Art':'#d86e64','Business':'#2a8f8d','Other':'#7f8b99'
+      'Auto':'#d8873f','Moto':'#e0b14f','Casa':'#11818c','Liquidità':'#33a06f','Azioni':'#6092ff','Crypto':'#8c6bff','Oro':'#d4a43d','Gioielli':'#cf6ca8','Orologi':'#7f7ce6','Arte':'#d86e64','Business':'#2a8f8d','Altro':'#7f8b99'
     };
 
     const RANDOM_ASSETS_POOL = [
-      {name:'Patek Philippe Nautilus',category:'Watches',subType:'Sport luxury',reference:'5711/1A',country:'Switzerland'},
-      {name:'Diamond tennis necklace',category:'Jewelry',subType:'Necklace',reference:'18kt VVS',country:'Italy'},
-      {name:'Tesla Model 3',category:'Car',subType:'Sedan',reference:'Highland',country:'Italy'},
-      {name:'Beach apartment',category:'Home',subType:'Apartment',reference:'70sqm',country:'Spain'},
+      {name:'Patek Philippe Nautilus',category:'Orologi',subType:'Sport luxury',reference:'5711/1A',country:'Svizzera'},
+      {name:'Collana tennis diamonds',category:'Gioielli',subType:'Collana',reference:'18kt VVS',country:'Italia'},
+      {name:'Tesla Model 3',category:'Auto',subType:'Sedan',reference:'Highland',country:'Italia'},
+      {name:'Beach apartment',category:'Casa',subType:'Appartamento',reference:'70mq',country:'Spagna'},
       {name:'Ethereum bag',category:'Crypto',subType:'ETH',reference:'Cold wallet',country:'Ledger'},
-      {name:'MSCI World ETF',category:'Stocks',subType:'ETF',reference:'SWDA',country:'Ireland'},
-      {name:'Ducati Panigale V4',category:'Motorbike',subType:'Sport',reference:'V4 S',country:'Italy'},
-      {name:'Krugerrand stack',category:'Gold',subType:'Coins',reference:'1 oz',country:'South Africa'},
-      {name:'Cash reserve',category:'Cash',subType:'Account',reference:'Banking',country:'Italy'},
-      {name:'Contemporary artwork',category:'Art',subType:'Canvas',reference:'Signed',country:'France'},
-      {name:'Startup equity',category:'Business',subType:'Shares',reference:'Seed round',country:'UK'},
-      {name:'Cartier Love bracelet',category:'Jewelry',subType:'Bracelet',reference:'Rose gold',country:'France'}
+      {name:'MSCI World ETF',category:'Azioni',subType:'ETF',reference:'SWDA',country:'Irlanda'},
+      {name:'Ducati Panigale V4',category:'Moto',subType:'Sportiva',reference:'V4 S',country:'Italia'},
+      {name:'Krugerrand stack',category:'Oro',subType:'Monete',reference:'1 oz',country:'Sudafrica'},
+      {name:'Cash reserve',category:'Liquidità',subType:'Conto',reference:'Banking',country:'Italia'},
+      {name:'Contemporary artwork',category:'Arte',subType:'Tela',reference:'Firmata',country:'Francia'},
+      {name:'Startup equity',category:'Business',subType:'Quote',reference:'Seed round',country:'UK'},
+      {name:'Cartier Love bracelet',category:'Gioielli',subType:'Bracciale',reference:'Rose gold',country:'Francia'}
     ];
 
     const state = {
@@ -581,14 +572,14 @@
     }
 
     function initCategories(){
-      $('assetCategory').innerHTML = '<option value="">Select</option>' + CATEGORY_DEFS.map(([name]) => `<option value="${name}">${name}</option>`).join('');
+      $('assetCategory').innerHTML = '<option value="">Seleziona</option>' + CATEGORY_DEFS.map(([name]) => `<option value="${name}">${name}</option>`).join('');
       renderCategoryChips();
     }
 
     function renderCategoryChips(){
       const cats = ['all', ...CATEGORY_DEFS.map(([name]) => name)];
       $('categoryChips').innerHTML = cats.map(cat => `
-        <button class="chip ${state.filter===cat?'active':''}" data-filter="${cat}">${cat==='all'?'All':cat}</button>
+        <button class="chip ${state.filter===cat?'active':''}" data-filter="${cat}">${cat==='all'?'Tutte':cat}</button>
       `).join('');
       document.querySelectorAll('[data-filter]').forEach(btn => btn.addEventListener('click',()=>{
         state.filter = btn.dataset.filter;
@@ -599,7 +590,7 @@
 
     function totals(){
       const total = state.assets.reduce((s,a)=>s+a.valueEUR,0);
-      const liquidInvested = state.assets.filter(a => ['Cash','Stocks','Crypto'].includes(a.category)).reduce((s,a)=>s+a.valueEUR,0);
+      const liquidInvested = state.assets.filter(a => ['Liquidità','Azioni','Crypto'].includes(a.category)).reduce((s,a)=>s+a.valueEUR,0);
       const byCategory = state.assets.reduce((acc,a)=>{
         acc[a.category]=(acc[a.category]||0)+a.valueEUR;
         return acc;
@@ -619,13 +610,13 @@
     }
 
     function getWealthBracket(total){
-      if(total >= 13000000) return { headline:'Top 1%', copy:'With wealth above roughly €13M, you fall into a bracket comparable to the top 1% in U.S. household wealth estimates.' };
-      if(total >= 3800000) return { headline:'Top 5%', copy:'Above roughly €3.8M, you are in a bracket comparable to the top 5% in U.S. household estimates.' };
-      if(total >= 1900000) return { headline:'Top 10%', copy:'Above roughly €1.9M, you enter a bracket comparable to the top 10% in U.S. household estimates.' };
-      if(total >= 1000000) return { headline:'Top 1.6% global', copy:'With over €1M, you are in the over-one-million range often used in global personal wealth reports.' };
-      if(total >= 193000) return { headline:'Top 50%+', copy:'Above roughly €193k, you exceed the median household wealth level in several recent U.S. benchmarks.' };
-      if(total > 0) return { headline:'Below top 50%', copy:'The portfolio is still below the benchmark used for the median bracket in several demo wealth comparisons.' };
-      return { headline:'Top 50%', copy:'Add assets to estimate your wealth bracket.' };
+      if(total >= 13000000) return { headline:'Top 1%', copy:'Con un patrimonio sopra circa €13M, rientri in una fascia paragonabile al top 1% nelle stime di ricchezza household degli Stati Uniti.' };
+      if(total >= 3800000) return { headline:'Top 5%', copy:'Sopra circa €3.8M sei in una fascia paragonabile al top 5% nelle stime household statunitensi.' };
+      if(total >= 1900000) return { headline:'Top 10%', copy:'Sopra circa €1.9M entri in una fascia paragonabile al top 10% nelle stime household statunitensi.' };
+      if(total >= 1000000) return { headline:'Top 1.6% global', copy:'Con oltre €1M rientri nella fascia oltre il milione spesso usata nei report globali sulla ricchezza personale.' };
+      if(total >= 193000) return { headline:'Top 50%+', copy:'Sopra circa €193k superi il livello mediano di ricchezza household in vari benchmark statunitensi recenti.' };
+      if(total > 0) return { headline:'Below top 50%', copy:'Il patrimonio è ancora sotto i benchmark usati per la fascia mediana in diversi confronti wealth demo.' };
+      return { headline:'Top 50%', copy:'Aggiungi beni per stimare la fascia patrimoniale.' };
     }
 
     function renderHero(){
@@ -644,7 +635,7 @@
             <div class="hero-cat-top"><span>${name}</span><strong>${plain(pct.toFixed(0))}%</strong></div>
             <div class="hero-cat-bar"><div class="hero-cat-fill" style="width:${pct}%;background:linear-gradient(90deg, ${color}, color-mix(in srgb, ${color} 55%, white));"></div></div>
           </div>`;
-      }).join('') : '<div class="small muted">Add assets to see category shares.</div>';
+      }).join('') : '<div class="small muted">Aggiungi beni per vedere le quote per categoria.</div>';
 
       const bracket = getWealthBracket(total);
       $('wealthPercentileHeadline').textContent = bracket.headline;
@@ -660,7 +651,7 @@
           <article class="tax-card rise-in">
             <div class="row"><div><strong>${t.country}</strong></div><div class="asset-value" style="font-size:17px">${euro(retained)}</div></div>
             <div class="bar"><div class="fill" style="width:${pct}%"></div></div>
-            <div class="row small muted"><span>Net remaining</span><span>${plain(pct.toFixed(0))}% retained</span></div>
+            <div class="row small muted"><span>Netto residuo</span><span>${plain(pct.toFixed(0))}% retained</span></div>
           </article>`;
       }).join('');
       $('taxOverview').innerHTML = markup || '';
@@ -677,9 +668,9 @@
           <article class="category-row rise-in">
             <div class="row"><strong>${name}</strong><div class="asset-value" style="font-size:17px">${euro(val)}</div></div>
             <div class="bar"><div class="fill" style="width:${pct}%; background:linear-gradient(90deg, ${color}, color-mix(in srgb, ${color} 60%, white));"></div></div>
-            <div class="row small muted"><span>Share of total</span><span>${plain(pct.toFixed(1))}%</span></div>
+            <div class="row small muted"><span>Quota sul totale</span><span>${plain(pct.toFixed(1))}%</span></div>
           </article>`;
-      }).join('') : `<div class="empty"><div class="empty-badge sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-categories"></use></svg></div><strong>No categories</strong><p class="small muted">Add at least one asset to see the composition.</p></div>`;
+      }).join('') : `<div class="empty"><div class="empty-badge sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-categories"></use></svg></div><strong>Nessuna categoria</strong><p class="small muted">Aggiungi almeno un bene per vedere la composizione.</p></div>`;
     }
 
     function renderAssets(){
@@ -694,25 +685,25 @@
                 <span class="dot" style="background:${accent}"></span>
                 <div>
                   <h3>${a.name}</h3>
-                  <div class="asset-meta">${meta || 'Portfolio asset'}</div>
+                  <div class="asset-meta">${meta || 'Bene patrimoniale'}</div>
                 </div>
               </div>
               <span class="pill">${a.currency}</span>
             </div>
             <div class="row">
-              <div class="small muted">${a.ticker || a.notes || 'No notes'}</div>
+              <div class="small muted">${a.ticker || a.notes || 'Nessuna nota'}</div>
               <div class="asset-value">${euro(a.valueEUR)}</div>
             </div>
             <div class="actions">
-              <button class="icon-btn springy" data-edit="${a.id}"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-edit"></use></svg></span><span>Edit</span></button>
-              <button class="icon-btn springy" data-delete="${a.id}"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-trash"></use></svg></span><span>Delete</span></button>
+              <button class="icon-btn springy" data-edit="${a.id}"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-edit"></use></svg></span><span>Modifica</span></button>
+              <button class="icon-btn springy" data-delete="${a.id}"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-trash"></use></svg></span><span>Elimina</span></button>
             </div>
           </article>`;
       }).join('') : `
         <div class="empty">
           <div class="empty-badge sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-plus"></use></svg></div>
-          <strong>No assets found</strong>
-          <p class="small muted">Add a property, watch, jewelry, crypto, or cash from the central tab.</p>
+          <strong>Nessun bene trovato</strong>
+          <p class="small muted">Aggiungi un immobile, un orologio, gioielli, crypto o liquidità dalla tab centrale.</p>
         </div>`;
     }
 
@@ -727,8 +718,8 @@
       $('assetForm').reset();
       $('assetId').value='';
       state.editingId = null;
-      $('formTitle').textContent = 'Add portfolio item';
-      $('saveBtn').innerHTML = '<span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span> Save asset';
+      $('formTitle').textContent = 'Aggiungi voce patrimoniale';
+      $('saveBtn').innerHTML = '<span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span> Salva bene';
     }
 
     function fillForm(asset){
@@ -743,8 +734,8 @@
       $('assetTicker').value = asset.ticker || '';
       $('assetNotes').value = asset.notes || '';
       state.editingId = asset.id;
-      $('formTitle').textContent = 'Edit portfolio item';
-      $('saveBtn').innerHTML = '<span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span> Update asset';
+      $('formTitle').textContent = 'Modifica voce patrimoniale';
+      $('saveBtn').innerHTML = '<span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-check"></use></svg></span> Aggiorna bene';
       openSheet();
     }
 
@@ -765,16 +756,16 @@
         valueEUR: toEUR(rawValue, $('assetCurrency').value)
       };
       if(!asset.name || !asset.category || !rawValue){
-        toast('Complete name, category, and value.');
+        toast('Completa nome, categoria e valore.');
         return;
       }
       const idx = state.assets.findIndex(a => a.id === asset.id);
       if(idx >= 0){
         state.assets[idx] = asset;
-        toast('Asset updated.');
+        toast('Bene aggiornato.');
       } else {
         state.assets.unshift(asset);
-        toast('Asset added.');
+        toast('Bene aggiunto.');
       }
       resetForm();
       closeSheet();
@@ -785,7 +776,7 @@
     function removeAsset(id){
       state.assets = state.assets.filter(a => a.id !== id);
       renderAll();
-      toast('Asset deleted.');
+      toast('Bene eliminato.');
     }
 
     function setTab(tab){
@@ -796,15 +787,15 @@
 
     function loadDemo(){
       state.assets = [
-        {id:uid(),name:'Main villa',category:'Home',rawValue:850000,currency:'EUR',country:'Italy',subType:'Villa',reference:'Residential',ticker:'',notes:'Primary residence',valueEUR:850000},
-        {id:uid(),name:'Rolex Daytona',category:'Watches',rawValue:28500,currency:'EUR',country:'Italy',subType:'Chronograph',reference:'116500LN',ticker:'',notes:'Box and papers',valueEUR:28500},
-        {id:uid(),name:'Nasdaq portfolio',category:'Stocks',rawValue:180000,currency:'USD',country:'USA',subType:'ETF + blue chip',reference:'VOO / AAPL',ticker:'AAPL',notes:'International broker',valueEUR:toEUR(180000,'USD')},
-        {id:uid(),name:'Bitcoin reserve',category:'Crypto',rawValue:92000,currency:'EUR',country:'Cold wallet',subType:'BTC',reference:'Long term',ticker:'BTC',notes:'Hardware custody',valueEUR:92000},
-        {id:uid(),name:'Bracelet collection',category:'Jewelry',rawValue:36000,currency:'EUR',country:'Italy',subType:'Bracelets',reference:'18kt',ticker:'',notes:'Insured value',valueEUR:36000},
-        {id:uid(),name:'Cash account',category:'Cash',rawValue:64000,currency:'EUR',country:'Italy',subType:'Account',reference:'Operating',ticker:'',notes:'Available cash',valueEUR:64000}
+        {id:uid(),name:'Villa principale',category:'Casa',rawValue:850000,currency:'EUR',country:'Italia',subType:'Villa',reference:'Residenziale',ticker:'',notes:'Immobile principale',valueEUR:850000},
+        {id:uid(),name:'Rolex Daytona',category:'Orologi',rawValue:28500,currency:'EUR',country:'Italia',subType:'Chronograph',reference:'116500LN',ticker:'',notes:'Scatola e garanzia',valueEUR:28500},
+        {id:uid(),name:'Portafoglio Nasdaq',category:'Azioni',rawValue:180000,currency:'USD',country:'USA',subType:'ETF + blue chip',reference:'VOO / AAPL',ticker:'AAPL',notes:'Broker internazionale',valueEUR:toEUR(180000,'USD')},
+        {id:uid(),name:'Bitcoin reserve',category:'Crypto',rawValue:92000,currency:'EUR',country:'Cold wallet',subType:'BTC',reference:'Long term',ticker:'BTC',notes:'Custodia hardware',valueEUR:92000},
+        {id:uid(),name:'Bracelet collection',category:'Gioielli',rawValue:36000,currency:'EUR',country:'Italia',subType:'Bracciali',reference:'18kt',ticker:'',notes:'Valore assicurato',valueEUR:36000},
+        {id:uid(),name:'Conto liquidità',category:'Liquidità',rawValue:64000,currency:'EUR',country:'Italia',subType:'Conto',reference:'Operativo',ticker:'',notes:'Cassa disponibile',valueEUR:64000}
       ];
       renderAll();
-      toast('Demo loaded.');
+      toast('Demo caricata.');
     }
 
     function toggleAdminEgg(){
@@ -823,7 +814,7 @@
             subType: base.subType,
             reference: base.reference,
             ticker: base.reference,
-            notes: 'Random asset generated for admin testing.',
+            notes: 'Asset casuale generato per test admin.',
             valueEUR: toEUR(rawValue, currency),
             injected: true
           };
@@ -834,7 +825,7 @@
         $('adminEggBtn').classList.add('active');
         $('adminEggBtn').innerHTML = '<span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-admin"></use></svg></span> Admin test mode · remove random assets';
         renderAll();
-        toast('Added 10 random test assets.');
+        toast('Aggiunti 10 beni casuali per test.');
       } else {
         state.assets = state.assets.filter(a => !state.injectedIds.includes(a.id));
         state.injectedIds = [];
@@ -842,7 +833,7 @@
         $('adminEggBtn').classList.remove('active');
         $('adminEggBtn').innerHTML = '<span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-admin"></use></svg></span> Admin test mode · +10 random assets';
         renderAll();
-        toast('Random assets removed.');
+        toast('Beni casuali rimossi.');
       }
     }
 
