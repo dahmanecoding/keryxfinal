@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Patrimonio Tracker — Liquid Glass Edition</title>
+  <title>Keryx</title>
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=cabinet-grotesk@500,700,800&display=swap" rel="stylesheet">
   <style>
@@ -302,7 +302,7 @@
           <div class="island-card">
             <div class="title-wrap">
               <small>Wealth cockpit</small>
-              <h1>Patrimonio Tracker</h1>
+              <h1>Keryx</h1>
             </div>
             <button class="theme-btn springy" id="themeBtn" aria-label="Cambia tema"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-theme"></use></svg></span></button>
           </div>
@@ -312,22 +312,22 @@
           <section class="screen" data-view="home">
             <article class="hero">
               <div class="hero-topline">
-                <div class="eyebrow">Patrimonio totale</div>
+                <div class="eyebrow">Total wealth</div>
                 <div class="total" id="grandTotal">€0</div>
                 <div class="hero-category-list" id="heroCategoryPercentages"></div>
               </div>
               <div class="hero-stats">
-                <div class="mini"><span>Beni</span><strong id="assetCount">0</strong></div>
-                <div class="mini"><span>Top categoria</span><strong id="topCategory">—</strong></div>
-                <div class="mini"><span>Liquidi + invest.</span><strong id="liquidInvested">€0</strong></div>
+                <div class="mini"><span>Assets</span><strong id="assetCount">0</strong></div>
+                <div class="mini"><span>Top categories</span><strong id="topCategory">—</strong></div>
+                <div class="mini"><span>Liquid + invested.</span><strong id="liquidInvested">€0</strong></div>
               </div>
             </article>
 
             <section class="glass-panel">
               <div class="panel-head">
                 <div>
-                  <div class="eyebrow">Tassazione demo</div>
-                  <h2>Valore netto per paese</h2>
+                  <div class="eyebrow">Demo taxation</div>
+                  <h2>Net value after tax</h2>
                 </div>
               </div>
               <div class="metrics" id="taxOverview"></div>
@@ -337,14 +337,14 @@
               <div class="panel-head">
                 <div>
                   <div class="eyebrow">Wealth percentile</div>
-                  <h2>Dove ti collochi</h2>
+                  <h2>Where do you rank?</h2>
                 </div>
               </div>
               <div class="metrics">
                 <article class="tax-card" style="gap:10px;">
-                  <div class="eyebrow">Stima demo globale</div>
+                  <div class="eyebrow">Global estimate</div>
                   <div class="total" id="wealthPercentileHeadline" style="font-size:clamp(2.2rem,8vw,3rem);line-height:.9;">Top 50%</div>
-                  <div class="small muted" id="wealthPercentileText">Aggiungi beni per stimare la fascia patrimoniale.</div>
+                  <div class="small muted" id="wealthPercentileText">Add more assets to estimate</div>
                 </article>
               </div>
             </section>
@@ -354,8 +354,8 @@
             <section class="glass-panel">
               <div class="panel-head">
                 <div>
-                  <div class="eyebrow">Archivio</div>
-                  <h2>Tutti i beni</h2>
+                  <div class="eyebrow">Archive</div>
+                  <h2>All assets</h2>
                 </div>
                 <button class="pill springy" id="loadDemoBtn"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-demo"></use></svg></span> Demo</button>
               </div>
@@ -372,8 +372,8 @@
             <section class="glass-panel">
               <div class="panel-head">
                 <div>
-                  <div class="eyebrow">Composizione</div>
-                  <h2>Categorie patrimonio</h2>
+                  <div class="eyebrow">Portfolio composition</div>
+                  <h2>Wealth categories</h2>
                 </div>
               </div>
               <div class="metrics" id="categoryBreakdown"></div>
@@ -384,8 +384,8 @@
             <section class="glass-panel">
               <div class="panel-head">
                 <div>
-                  <div class="eyebrow">Cinque paesi</div>
-                  <h2>Scenario fiscale</h2>
+                  <div class="eyebrow">Five countries</div>
+                  <h2>Tax scenario</h2>
                 </div>
               </div>
               <div class="metrics" id="taxCountryTable"></div>
@@ -415,7 +415,7 @@
           <section class="glass-panel" style="background:none;border:none;box-shadow:none;">
             <div class="panel-head" style="padding-top:0; border-bottom:none;">
               <div>
-                <div class="eyebrow">Nuovo bene</div>
+                <div class="eyebrow">New Asset</div>
                 <h2 id="formTitle">Aggiungi voce patrimoniale</h2>
               </div>
               <button class="pill springy" id="closeSheetBtn"><span class="sf-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-close"></use></svg></span> Chiudi</button>
@@ -423,22 +423,22 @@
             <form id="assetForm" class="form-wrap">
               <input type="hidden" id="assetId" />
               <div class="field-shell">
-                <label for="assetName">Nome bene</label>
+                <label for="assetName">Asset name</label>
                 <input id="assetName" required placeholder="Es. Rolex GMT-Master II" />
               </div>
               <div class="grid2">
                 <div class="field-shell">
-                  <label for="assetCategory">Categoria</label>
+                  <label for="assetCategory">Category</label>
                   <select id="assetCategory" required></select>
                 </div>
                 <div class="field-shell">
-                  <label for="assetValue">Valore</label>
+                  <label for="assetValue">Value</label>
                   <input id="assetValue" required type="number" min="0" step="0.01" placeholder="15000" />
                 </div>
               </div>
               <div class="grid2">
                 <div class="field-shell">
-                  <label for="assetCurrency">Valuta</label>
+                  <label for="assetCurrency">Currency</label>
                   <select id="assetCurrency">
                     <option value="EUR">EUR</option>
                     <option value="USD">USD</option>
@@ -447,26 +447,26 @@
                   </select>
                 </div>
                 <div class="field-shell">
-                  <label for="assetCountry">Paese / sede</label>
+                  <label for="assetCountry">Country / Location</label>
                   <input id="assetCountry" placeholder="Italia" />
                 </div>
               </div>
               <div class="grid2">
                 <div class="field-shell">
-                  <label for="assetSubType">Tipo / sottocategoria</label>
+                  <label for="assetSubType">Type / Subcategory</label>
                   <input id="assetSubType" placeholder="Es. Bracciale, Daytona, Berlina" />
                 </div>
                 <div class="field-shell">
-                  <label for="assetReference">Modello / referenza</label>
+                  <label for="assetReference">Model / reference</label>
                   <input id="assetReference" placeholder="Es. 126710BLRO" />
                 </div>
               </div>
               <div class="field-shell">
-                <label for="assetTicker">Ticker o identificativo</label>
+                <label for="assetTicker">Ticker / ID</label>
                 <input id="assetTicker" placeholder="BTC, AAPL, targa, ISIN..." />
               </div>
               <div class="field-shell">
-                <label for="assetNotes">Note</label>
+                <label for="assetNotes">Notes</label>
                 <textarea id="assetNotes" placeholder="Custodia, quota, dettagli utili..."></textarea>
               </div>
               <div class="form-actions">
