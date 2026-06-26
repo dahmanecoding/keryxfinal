@@ -318,7 +318,7 @@ textarea {
   -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
 }
 
-/* ── Island card ────────────────────────────────────────────── */
+/* ── Island card (kept for other uses) ────────────────────── */
 .island-card {
   background: linear-gradient(180deg, var(--glass-strong), var(--glass-soft));
   border: 1px solid var(--stroke);
@@ -331,18 +331,29 @@ textarea {
   gap: 12px;
 }
 
-.title-wrap small {
-  display: block;
-  font-size: 11px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  margin-bottom: 3px;
+/* ── Keryx wordmark header ─────────────────────────────── */
+.keryx-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 4px 2px;
 }
 
-.title-wrap h1 {
-  font: 800 18px/1 'Cabinet Grotesk', 'Satoshi', sans-serif;
-  letter-spacing: -.03em;
+.keryx-wordmark {
+  font: 900 38px/1 'Cabinet Grotesk', 'Satoshi', sans-serif;
+  letter-spacing: -.045em;
+  background: linear-gradient(
+    135deg,
+    var(--text) 0%,
+    color-mix(in srgb, var(--primary) 80%, var(--text)) 60%,
+    color-mix(in srgb, var(--primary-2) 70%, var(--text)) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  margin: 0;
+  user-select: none;
 }
 
 .theme-btn {
