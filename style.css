@@ -1099,6 +1099,14 @@ details[open] > summary::before { transform: rotate(90deg); }
   }
 }
 
+/* Wide-screen: subtle border on the centred column */
+@media (min-width: 681px) {
+  .app {
+    border-left: 1px solid rgba(255,255,255,.22);
+    border-right: 1px solid rgba(255,255,255,.22);
+  }
+}
+
 /* ── Reduced motion ─────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,

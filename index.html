@@ -94,28 +94,14 @@
   <!-- ── Decorative background orbs ───────────────────────── -->
   <div class="backdrop-orb" aria-hidden="true"></div>
 
-  <!-- ── App stage ────────────────────────────────────────── -->
-  <div class="stage">
-    <div class="phone" role="application" aria-label="Keryx wealth tracker">
+  <!-- ── App ──────────────────────────────────────────────── -->
+  <!-- Toast notification container (aria-live for screen readers) -->
+  <div class="toast-wrap" id="toastWrap" role="status" aria-live="polite" aria-atomic="true"></div>
 
-      <!-- Decorative noise texture -->
-      <div class="noise" aria-hidden="true"></div>
-
-      <!-- Simulated phone notch -->
-      <div class="notch" aria-hidden="true"></div>
-
-      <!-- Toast notification container (aria-live for screen readers) -->
-      <div class="toast-wrap" id="toastWrap" role="status" aria-live="polite" aria-atomic="true"></div>
-
-      <div class="app">
+  <div class="app" role="application" aria-label="Keryx wealth tracker">
 
         <!-- ── App header ──────────────────────────────────── -->
         <header class="top">
-          <!-- Decorative status bar (not interactive) -->
-          <div class="statusbar" aria-hidden="true">
-            <span>9:41</span>
-            <span>5G 100%</span>
-          </div>
 
           <div class="keryx-header">
             <h1 class="keryx-wordmark">Keryx</h1>
@@ -298,9 +284,9 @@
           </nav>
         </div>
 
-      </div><!-- /.app -->
+  </div><!-- /.app -->
 
-      <!-- ── Add / Edit asset bottom sheet ──────────────────── -->
+  <!-- ── Add / Edit asset bottom sheet ──────────────────── -->
       <div
         class="sheet"
         id="sheet"
@@ -456,10 +442,7 @@
             </form>
           </section>
         </div>
-      </div><!-- /#sheet -->
-
-    </div><!-- /.phone -->
-  </div><!-- /.stage -->
+  </div><!-- /#sheet -->
 
   <!-- ── JavaScript modules ───────────────────────────────── -->
   <script type="module" src="js/app.js"></script>
